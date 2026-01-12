@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBW News - Your Trusted News Source</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #dc2626;
+            --accent-color: #f59e0b;
+            --dark-color: #1e293b;
+            --light-gray: #f1f5f9;
+            --medium-gray: #64748b;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* ========== RESET & BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--primary-color);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .category-badge.world { background: #059669; }
+        .category-badge.politics { background: #dc2626; }
+        .category-badge.technology { background: #2563eb; }
+        .category-badge.sports { background: #f59e0b; }
+        .category-badge.entertainment { background: #8b5cf6; }
+        .category-badge.health { background: #ec4899; }
+
+        /* ========== HEADER & NAVIGATION ========== */
+        .header {
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-color);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--dark-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--light-gray);
+            padding: 10px 16px;
+            border-radius: 25px;
+            transition: var(--transition);
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .search-box i {
+            color: var(--medium-gray);
+            margin-right: 8px;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-color);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* ========== BREAKING NEWS BANNER ========== */
+        .breaking-news {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 12px 0;
+            overflow: hidden;
+        }
+
+        .breaking-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .breaking-label {
+            background: var(--white);
+            color: var(--secondary-color);
+            padding: 6px 16px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .breaking-text {
+            animation: scroll-left 25s linear infinite;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            margin: 40px 0;
+        }
+
+        .hero-card {
+            position: relative;
+            height: 550px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 50px;
+            color: var(--white);
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 24px;
+            line-height: 1.7;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+
+        /* ========== MAIN CONTENT GRID ========== */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* ========== NEWS CARDS ========== */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .news-card-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .news-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .news-card:hover .news-card-image img {
+            transform: scale(1.1);
+        }
+
+        .news-card-content {
+            padding: 24px;
+        }
+
+        .news-card-content h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .news-card:hover h3 {
+            color: var(--primary-color);
+        }
+
+        .news-card-content p {
+            color: var(--medium-gray);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--medium-gray);
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            gap: 10px;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trending-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-item:hover {
+            transform: translateX(5px);
+        }
+
+        .trending-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light-gray);
+            min-width: 30px;
+        }
+
+        .trending-item:hover .trending-number {
+            color: var(--primary-color);
+        }
+
+        .trending-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .trending-item:hover h4 {
+            color: var(--primary-color);
+        }
+
+        .trending-date {
+            font-size: 12px;
+            color: var(--medium-gray);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-form input {
+            padding: 14px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .newsletter-form button {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* ========== ARTICLE PAGE ========== */
+        .article-page {
+            display: none;
+            background: var(--white);
+            min-height: 100vh;
+        }
+
+        .article-page.active {
+            display: block;
+        }
+
+        .article-header {
+            position: relative;
+            height: 500px;
+            margin-bottom: 50px;
+        }
+
+        .article-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        .article-header-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 60px 0;
+            color: var(--white);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .back-button:hover {
+            gap: 12px;
+        }
+
+        .article-header-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .article-header-meta {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            font-size: 15px;
+        }
+
+        .article-content-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .article-body {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #374151;
+        }
+
+        .article-body p {
+            margin-bottom: 24px;
+        }
+
+        .article-body h2 {
+            font-size: 32px;
+            margin: 40px 0 20px;
+            color: var(--dark-color);
+        }
+
+        .article-body blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 24px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 22px;
+            color: var(--medium-gray);
+        }
+
+        .share-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        .share-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0a66c2; }
+        .share-btn.whatsapp { background: #25d366; }
+
+        .related-articles {
+            margin-top: 60px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p {
+            color: #94a3b8;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* ========== SCROLL TO TOP BUTTON ========== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            background: #1d4ed8;
+            transform: translateY(-5px);
+        }
+
+        /* ========== LOADING ANIMATION ========== */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: var(--medium-gray);
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--light-gray);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--white);
+                flex-direction: column;
+                padding: 40px;
+                box-shadow: var(--shadow-lg);
+                transition: var(--transition);
+                align-items: flex-start;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .hero-content {
+                padding: 30px;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-header-content h1 {
+                font-size: 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HOME PAGE ========== -->
+    <div id="homePage">
+        <!-- Header / Navigation -->
+        <header class="header">
+            <div class="container">
+                <nav class="navbar">
+                    <a href="#" class="logo">MBW<span>News</span></a>
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#" onclick="filterCategory('all')">Home</a></li>
+                        <li><a href="#" onclick="filterCategory('world')">World</a></li>
+                        <li><a href="#" onclick="filterCategory('politics')">Politics</a></li>
+                        <li><a href="#" onclick="filterCategory('technology')">Technology</a></li>
+                        <li><a href="#" onclick="filterCategory('sports')">Sports</a></li>
+                        <li><a href="#" onclick="filterCategory('entertainment')">Entertainment</a></li>
+                        <li><a href="#" onclick="filterCategory('health')">Health</a></li>
+                    </ul>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search news..." id="searchInput">
+                    </div>
+                    <div class="menu-toggle" id="menuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breaking News Banner -->
+        <div class="breaking-news">
+            <div class="container">
+                <div class="breaking-content">
+                    <span class="breaking-label">Breaking News</span>
+                    <p class="breaking-text">
+                        Revolutionary AI system transforms healthcare diagnostics • Global climate summit reaches historic agreement • Tech giant announces quantum computing breakthrough • Olympic games set new viewership records
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-card" onclick="showArticle(0)">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1400&h=600&fit=crop" alt="AI Healthcare Revolution">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <span class="category-badge technology">Technology</span>
+                        <h1>Revolutionary AI Technology Transforms Healthcare Industry Worldwide</h1>
+                        <div class="hero-meta">
+                            <span><i class="fas fa-user"></i> Dr. Sarah Mitchell</span>
+                            <span><i class="fas fa-calendar"></i> January 10, 2026</span>
+                            <span><i class="fas fa-clock"></i> 8 min read</span>
+                        </div>
+                        <p>Groundbreaking artificial intelligence system helps doctors diagnose diseases with unprecedented accuracy, marking a transformative era in medical technology and patient care.</p>
+                        <button class="btn btn-primary">Read Full Story</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <section class="container">
+            <div class="main-content">
+                <!-- News Grid -->
+                <div class="news-area">
+                    <h2 class="section-title">Latest News</h2>
+                    <div class="news-grid" id="newsGrid">
+                        <!-- News cards will be dynamically loaded here -->
+                    </div>
+                    <div class="loading" id="loading">Loading more articles</div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Trending News -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-fire" style="color: var(--secondary-color);"></i>
+                            Trending Now
+                        </h3>
+                        <div id="trendingNews">
+                            <!-- Trending items will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Popular Tags -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-tags"></i>
+                            Popular Tags
+                        </h3>
+                        <div class="tags">
+                            <span class="tag" onclick="filterCategory('technology')">Technology</span>
+                            <span class="tag" onclick="filterCategory('politics')">Politics</span>
+                            <span class="tag" onclick="filterCategory('health')">Health</span>
+                            <span class="tag" onclick="filterCategory('sports')">Sports</span>
+                            <span class="tag" onclick="filterCategory('world')">World</span>
+                            <span class="tag" onclick="filterCategory('entertainment')">Entertainment</span>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Subscription -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-envelope"></i>
+                            Newsletter
+                        </h3>
+                        <p style="color: var(--medium-gray); margin-bottom: 15px; font-size: 14px;">
+                            Get the latest news and updates delivered to your inbox.
+                        </p>
+                        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit">Subscribe Now</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>About NewsSphere</h3>
+                        <p>Your trusted source for breaking news, in-depth analysis, and compelling stories from around the world. We deliver accurate, unbiased journalism 24/7.</p>
+                        <div class="social-icons" style="margin-top: 20px;">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Advertise</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press Release</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Categories</h3>
+                        <ul class="footer-links">
+                            <li><a href="#" onclick="filterCategory('world')">World News</a></li>
+                            <li><a href="#" onclick="filterCategory('politics')">Politics</a></li>
+                            <li><a href="#" onclick="filterCategory('technology')">Technology</a></li>
+                            <li><a href="#" onclick="filterCategory('sports')">Sports</a></li>
+                            <li><a href="#" onclick="filterCategory('health')">Health</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Legal</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Editorial Guidelines</a></li>
+                            <li><a href="#">Corrections</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 NewsSphere. All rights reserved. | Delivering truth, inspiring change.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ========== ARTICLE PAGE ========== -->
+    <div class="article-page" id="articlePage">
+        <div class="article-header">
+            <img src="" alt="Article Image" id="articleHeaderImage">
+            <div class="article-header-overlay"></div>
+            <div class="article-header-content">
+                <div class="container">
+                    <a href="#" class="back-button" onclick="closeArticle()">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                    <span class="category-badge" id="articleCategory">Technology</span>
+                    <h1 id="articleTitle">Article Title</h1>
+                    <div class="article-header-meta">
+                        <span><i class="fas fa-user"></i> <span id="articleAuthor">Author</span></span>
+                        <span><i class="fas fa-calendar"></i> <span id="articleDate">Date</span></span>
+                        <span><i class="fas fa-clock"></i> <span id="articleReadTime">5 min read</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-content-wrapper">
+            <div class="article-body" id="articleBody">
+                <!-- Article content will be loaded here -->
+            </div>
+
+            <div class="share-section">
+                <h3 class="share-title">Share this article</h3>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="related-articles">
+                <h2 class="section-title">Related Articles</h2>
+                <div class="news-grid" id="relatedArticles">
+                    <!-- Related articles will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // ========== NEWS DATA ========== 
+        const newsData = [
+            {
+                id: 1,
+                category: 'technology',
+                title: 'Revolutionary AI Technology Transforms Healthcare Industry Worldwide',
+                summary: 'Groundbreaking artificial intelligence system helps doctors diagnose diseases with unprecedented accuracy, marking a transformative era in medical technology.',
+                author: 'Dr. Sarah Mitchell',
+                date: 'January 10, 2026',
+                readTime: '8 min read',
+                image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
+                content: `
+                    <p>In a development that promises to reshape the landscape of modern healthcare, researchers and technology companies have collaborated to create an artificial intelligence system capable of analyzing medical data with remarkable precision. This innovation represents years of dedicated research and countless hours of training sophisticated algorithms on vast datasets.</p>
+                    
+                    <p>The system, which has been tested in several leading hospitals worldwide, has demonstrated an ability to identify patterns and anomalies that even experienced medical professionals might overlook. Early results suggest that this technology could significantly reduce diagnostic errors while accelerating the treatment process for patients.</p>
+                    
+                    <blockquote>"This represents a paradigm shift in how we approach medical diagnosis and treatment. The potential to save lives and improve patient outcomes is extraordinary."</blockquote>
+                    
+                    <h2>Impact on Healthcare Professionals</h2>
+                    
+                    <p>Healthcare professionals have welcomed this advancement, noting that the AI system serves as a powerful tool that enhances rather than replaces human expertise. Doctors report that having access to AI-powered analysis allows them to make more informed decisions and spend more quality time with patients.</p>
+                    
+                    <p>The technology has also shown promise in addressing healthcare disparities by making expert-level diagnostic capabilities available in regions with limited access to specialized medical professionals. This democratization of healthcare expertise could have far-reaching implications for global health equity.</p>
+                    
+                    <h2>Looking Ahead</h2>
+                    
+                    <p>As this technology continues to evolve, researchers are exploring additional applications across various medical specialties. The success of this AI system has sparked increased investment in healthcare technology, with numerous organizations now developing complementary solutions.</p>
+                    
+                    <p>Regulatory bodies are working closely with developers to establish guidelines that ensure the safe and ethical deployment of AI in medical settings. The focus remains on maintaining the highest standards of patient care while leveraging technological innovation to improve outcomes.</p>
+                `
+            },
+            {
+                id: 2,
+                category: 'world',
+                title: 'Global Climate Summit Reaches Historic Agreement on Emissions',
+                summary: 'World leaders commit to ambitious carbon reduction targets in landmark environmental accord that could reshape global energy policy.',
+                author: 'Emma Thompson',
+                date: 'January 10, 2026',
+                readTime: '6 min read',
+                image: 'data:image/jpeg;base64,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',
+                content: `
+                    <p>In a momentous development for environmental policy, representatives from over 150 nations have reached a comprehensive agreement on carbon emissions reduction at the Global Climate Summit. The accord marks one of the most significant international environmental agreements in recent history.</p>
+                    
+                    <p>The agreement includes specific targets for reducing greenhouse gas emissions by 2035, with binding commitments from major industrial nations. Participating countries have pledged to transition to renewable energy sources and implement stricter environmental regulations.</p>
+                    
+                    <blockquote>"Today we have taken a decisive step toward securing a sustainable future for generations to come. This agreement demonstrates what humanity can achieve when we work together."</blockquote>
+                    
+                    <h2>Key Provisions</h2>
+                    
+                    <p>The summit resulted in several groundbreaking provisions, including substantial financial commitments to support developing nations in their transition to clean energy. Developed countries have agreed to provide technological assistance and funding to help emerging economies adopt sustainable practices.</p>
+                    
+                    <p>Environmental experts have praised the agreement as a crucial milestone, though some activists argue that more aggressive action is needed. The accord will be reviewed annually, with provisions for strengthening commitments based on scientific evidence and technological advances.</p>
+                `
+            },
+            {
+                id: 3,
+                category: 'sports',
+                title: 'Olympic Athletes Shatter Records in Stunning Winter Games Performance',
+                summary: 'Multiple world records fall as athletes deliver extraordinary performances at this years Winter Olympic Games.',
+                author: 'Marcus Johnson',
+                date: 'January 9, 2026',
+                readTime: '5 min read',
+                image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=500&fit=crop',
+                content: `
+                    <p>The Winter Olympic Games have witnessed an unprecedented surge of record-breaking performances, with athletes pushing the boundaries of human achievement across multiple disciplines. The games have captivated global audiences with displays of exceptional skill and determination.</p>
+                    
+                    <p>From speed skating to alpine skiing, competitors have delivered performances that have exceeded expectations and redefined what is possible in winter sports. The combination of advanced training techniques, improved equipment, and extraordinary talent has created ideal conditions for record-breaking achievements.</p>
+                    
+                    <blockquote>"The level of competition we've seen here is simply extraordinary. These athletes represent the pinnacle of human athletic achievement."</blockquote>
+                    
+                    <h2>Memorable Moments</h2>
+                    
+                    <p>Several standout performances have captured the imagination of sports fans worldwide. Young athletes making their Olympic debut have competed alongside seasoned veterans, creating compelling narratives of triumph and perseverance.</p>
+                    
+                    <p>The games have also highlighted the growing diversity and global reach of winter sports, with competitors from non-traditional winter sports nations achieving podium finishes. This trend reflects increased investment in winter sports infrastructure and training programs worldwide.</p>
+                `
+            },
+            {
+                id: 4,
+                category: 'politics',
+                title: 'Historic Peace Treaty Signed Between Neighboring Nations',
+                summary: 'After years of diplomatic negotiations, two countries forge path toward lasting peace and economic cooperation.',
+                author: 'David Williams',
+                date: 'January 9, 2026',
+                readTime: '7 min read',
+                image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&h=500&fit=crop',
+                content: `
+                    <p>In a ceremony attended by international dignitaries, two neighboring nations have signed a comprehensive peace treaty ending decades of tension and conflict. The agreement represents a triumph of diplomacy and opens new possibilities for regional stability and prosperity.</p>
+                    
+                    <p>The treaty addresses long-standing disputes over territorial boundaries, resource allocation, and trade relations. Both countries have committed to establishing joint economic zones and cultural exchange programs aimed at fostering mutual understanding and cooperation.</p>
+                    
+                    <blockquote>"This treaty is not just about ending conflict; it's about building a shared future based on respect, cooperation, and common prosperity."</blockquote>
+                    
+                    <h2>Path to Agreement</h2>
+                    
+                    <p>The road to this historic agreement involved years of patient negotiation facilitated by international mediators. Multiple rounds of talks addressed complex issues, with both sides demonstrating willingness to compromise for the greater good.</p>
+                    
+                    <p>Regional experts believe the treaty could serve as a model for conflict resolution in other parts of the world. The agreement includes provisions for ongoing dialogue and mechanisms for addressing future disputes through peaceful means.</p>
+                `
+            },
+            {
+                id: 5,
+                category: 'technology',
+                title: 'Quantum Computing Breakthrough Promises Revolutionary Applications',
+                summary: 'Scientists achieve major milestone in quantum computing that could transform industries from finance to pharmaceuticals.',
+                author: 'Dr. Lisa Chen',
+                date: 'January 8, 2026',
+                readTime: '6 min read',
+                image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=500&fit=crop',
+                content: `
+                    <p>Researchers have announced a significant breakthrough in quantum computing technology that brings practical applications substantially closer to reality. The development addresses key challenges that have hindered the development of large-scale quantum computers.</p>
+                    
+                    <p>The new approach significantly improves error correction and system stability, two critical factors that have limited the practical use of quantum computers. This advancement could accelerate the timeline for quantum computing applications across various industries.</p>
+                    
+                    <blockquote>"This breakthrough represents years of collaborative research and brings us significantly closer to realizing the full potential of quantum computing."</blockquote>
+                    
+                    <h2>Potential Applications</h2>
+                    
+                    <p>The implications of this advancement extend across multiple fields, from drug discovery and materials science to cryptography and artificial intelligence. Industries are already exploring how quantum computing could solve complex problems that are currently intractable for classical computers.</p>
+                    
+                    <p>While widespread commercial applications remain years away, this breakthrough has energized the quantum computing research community and attracted substantial new investment in the field.</p>
+                `
+            },
+            {
+                id: 6,
+                category: 'health',
+                title: 'New Study Reveals Promising Breakthrough in Cancer Treatment',
+                summary: 'Innovative therapy shows remarkable success in clinical trials, offering hope for more effective cancer treatment options.',
+                author: 'Dr. Robert Martinez',
+                date: 'January 8, 2026',
+                readTime: '7 min read',
+                image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop',
+                content: `
+                    <p>Medical researchers have announced promising results from clinical trials of a novel cancer treatment that combines immunotherapy with targeted drug delivery. The approach has shown significant effectiveness in treating certain types of cancer that have proven resistant to conventional therapies.</p>
+                    
+                    <p>The treatment works by enhancing the body's immune response while precisely targeting cancer cells, minimizing damage to healthy tissue. Early results indicate improved outcomes with fewer side effects compared to traditional chemotherapy.</p>
+                    
+                    <blockquote>"These results represent a significant step forward in our ongoing battle against cancer. The potential to improve patient outcomes while reducing treatment side effects is tremendously encouraging."</blockquote>
+                    
+                    <h2>Patient Impact</h2>
+                    
+                    <p>Patients participating in the trials have reported better quality of life during treatment, with many experiencing fewer of the debilitating side effects associated with conventional cancer therapies. The treatment protocol is now moving to expanded trials involving larger patient populations.</p>
+                    
+                    <p>Regulatory authorities are closely monitoring the trials, and if current success rates continue, the treatment could receive approval for broader use within the next few years.</p>
+                `
+            },
+            {
+                id: 7,
+                category: 'entertainment',
+                title: 'Film Festival Showcases Groundbreaking International Cinema',
+                summary: 'Major film festival celebrates diverse storytelling with premieres from acclaimed directors worldwide.',
+                author: 'Sophie Anderson',
+                date: 'January 7, 2026',
+                readTime: '5 min read',
+                image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=500&fit=crop',
+                content: `
+                    <p>The annual international film festival has concluded with a celebration of cinematic excellence, featuring premieres from both established masters and emerging filmmakers. The event showcased diverse perspectives and innovative storytelling techniques that pushed the boundaries of the medium.</p>
+                    
+                    <p>This year's festival emphasized international collaboration and cultural exchange, with several films resulting from cross-border partnerships. The selection highlighted stories that explore universal themes while maintaining distinct cultural voices.</p>
+                    
+                    <blockquote>"Cinema has the unique power to bridge cultural divides and foster understanding. This festival exemplifies that potential."</blockquote>
+                    
+                    <h2>Award Winners</h2>
+                    
+                    <p>The festival's top honors went to films that combined artistic vision with compelling narratives. Jury members praised winners for their technical excellence and emotional resonance, noting the high caliber of competition across all categories.</p>
+                    
+                    <p>Industry experts predict that several festival selections will achieve commercial success and critical acclaim in wider releases throughout the year.</p>
+                `
+            },
+            {
+                id: 8,
+                category: 'world',
+                title: 'International Space Station Prepares for Historic Expansion',
+                summary: 'New modules will expand research capabilities and pave way for long-duration space missions.',
+                author: 'Captain Jennifer Brooks',
+                date: 'January 7, 2026',
+                readTime: '6 min read',
+                image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&h=500&fit=crop',
+                content: `
+                    <p>Space agencies from multiple nations are collaborating on a significant expansion of the International Space Station, adding new research modules and enhanced life support systems. The expansion will enable more ambitious scientific research and longer crew rotations.</p>
+                    
+                    <p>The new modules will include advanced laboratories for materials science, biotechnology research, and Earth observation capabilities. The expansion also incorporates improved living quarters designed to support crew wellbeing during extended missions.</p>
+                    
+                    <blockquote>"This expansion represents a new chapter in international space cooperation and will advance our understanding of living and working in space."</blockquote>
+                    
+                    <h2>Scientific Opportunities</h2>
+                    
+                    <p>Researchers are particularly excited about new experimental capabilities that will support studies relevant to future deep space missions. The enhanced facilities will enable research that could prove crucial for planned missions to the Moon and Mars.</p>
+                    
+                    <p>The expansion project involves contributions from partner agencies worldwide, demonstrating continued commitment to peaceful international cooperation in space exploration.</p>
+                `
+            }
+        ];
+
+        // ========== GLOBAL VARIABLES ========== 
+        let currentCategory = 'all';
+        let displayedArticles = 6;
+
+        // ========== INITIALIZATION ========== 
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNews();
+            loadTrendingNews();
+            initializeEventListeners();
+        });
+
+        // ========== EVENT LISTENERS ========== 
+        function initializeEventListeners() {
+            // Sticky header on scroll
+            window.addEventListener('scroll', handleScroll);
+            
+            // Mobile menu toggle
+            document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
+            
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            
+            // Scroll to top button
+            document.getElementById('scrollTop').addEventListener('click', scrollToTop);
+            
+            // Close mobile menu when clicking nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('active');
+                    document.getElementById('menuToggle').classList.remove('active');
+                });
+            });
+        }
+
+        // ========== SCROLL HANDLER ========== 
+        function handleScroll() {
+            const header = document.querySelector('.header');
+            const scrollTop = document.getElementById('scrollTop');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+                scrollTop.classList.add('show');
+            } else {
+                header.classList.remove('scrolled');
+                scrollTop.classList.remove('show');
+            }
+        }
+
+        // ========== MOBILE MENU TOGGLE ========== 
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.getElementById('menuToggle');
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        // ========== LOAD NEWS ARTICLES ========== 
+        function loadNews() {
+            const newsGrid = document.getElementById('newsGrid');
+            const filteredNews = currentCategory === 'all' 
+                ? newsData 
+                : newsData.filter(article => article.category === currentCategory);
+            
+            newsGrid.innerHTML = '';
+            
+            const articlesToShow = filteredNews.slice(0, displayedArticles);
+            
+            articlesToShow.forEach((article, index) => {
+                const newsCard = createNewsCard(article, index);
+                newsGrid.innerHTML += newsCard;
+            });
+            
+            // Hide loading if all articles are shown
+            const loading = document.getElementById('loading');
+            if (displayedArticles >= filteredNews.length) {
+                loading.style.display = 'none';
+            } else {
+                loading.style.display = 'block';
+            }
+        }
+
+        // ========== CREATE NEWS CARD ========== 
+        function createNewsCard(article, index) {
+            return `
+                <div class="news-card" onclick="showArticle(${index})">
+                    <div class="news-card-image">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    </div>
+                    <div class="news-card-content">
+                        <span class="category-badge ${article.category}">${article.category}</span>
+                        <h3>${article.title}</h3>
+                        <p>${article.summary}</p>
+                        <div class="news-meta">
+                            <div class="author">
+                                <i class="fas fa-user-circle"></i>
+                                <span>${article.author}</span>
+                            </div>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showArticle(${index})">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========== LOAD TRENDING NEWS ========== 
+        function loadTrendingNews() {
+            const trendingContainer = document.getElementById('trendingNews');
+            const trending = newsData.slice(0, 5);
+            
+            trendingContainer.innerHTML = trending.map((article, index) => `
+                <div class="trending-item" onclick="showArticle(${index})">
+                    <span class="trending-number">${index + 1}</span>
+                    <div class="trending-content">
+                        <h4>${article.title}</h4>
+                        <span class="trending-date">${article.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ========== FILTER BY CATEGORY ========== 
+        function filterCategory(category) {
+            currentCategory = category;
+            displayedArticles = 6;
+            loadNews();
+            
+            // Scroll to news section
+            document.querySelector('.news-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ========== SEARCH FUNCTIONALITY ========== 
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const newsGrid = document.getElementById('newsGrid');
+            
+            if (searchTerm === '') {
+                loadNews();
+                return;
+            }
+            
+            const filtered = newsData.filter(article => 
+                article.title.toLowerCase().includes(searchTerm) ||
+                article.summary.toLowerCase().includes(searchTerm) ||
+                article.category.toLowerCase().includes(searchTerm)
+            );
+            
+            newsGrid.innerHTML = filtered.map((article, index) => 
+                createNewsCard(article, newsData.indexOf(article))
+            ).join('');
+            
+            if (filtered.length === 0) {
+                newsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--medium-gray);">No articles found matching your search.</p>';
+            }
+        }
+
+        // ========== SHOW ARTICLE PAGE ========== 
+        function showArticle(index) {
+            const article = newsData[index];
+            
+            // Populate article page
+            document.getElementById('articleHeaderImage').src = article.image;
+            document.getElementById('articleCategory').textContent = article.category;
+            document.getElementById('articleCategory').className = `category-badge ${article.category}`;
+            document.getElementById('articleTitle').textContent = article.title;
+            document.getElementById('articleAuthor').textContent = article.author;
+            document.getElementById('articleDate').textContent = article.date;
+            document.getElementById('articleReadTime').textContent = article.readTime;
+            document.getElementById('articleBody').innerHTML = article.content;
+            
+            // Load related articles
+            loadRelatedArticles(article.category, article.id);
+            
+            // Show article page, hide home page
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('articlePage').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ========== CLOSE ARTICLE PAGE ========== 
+        function closeArticle() {
+            document.getElementById('articlePage').classList.remove('active');
+            document.getElementById('homePage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ========== LOAD RELATED ARTICLES ========== 
+        function loadRelatedArticles(category, currentId) {
+            const related = newsData
+                .filter(article => article.category === category && article.id !== currentId)
+                .slice(0, 3);
+            
+            const relatedContainer = document.getElementById('relatedArticles');
+            relatedContainer.innerHTML = related.map(article => 
+                createNewsCard(article, newsData.indexOf(article))
+            ).join('');
+        }
+
+        // ========== NEWSLETTER SUBSCRIPTION ========== 
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive our latest news updates.`);
+            e.target.reset();
+        }
+
+        // ========== SCROLL TO TOP ========== 
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ========== LAZY LOADING (Infinite Scroll) ========== 
+        window.addEventListener('scroll', () => {
+            const loading = document.getElementById('loading');
+            if (!loading || loading.style.display === 'none') return;
+            
+            const loadingPosition = loading.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight;
+            
+            if (loadingPosition < screenHeight) {
+                displayedArticles += 3;
+                loadNews();
+            }
+        });
+    </script>
+</body>
+</html>
